@@ -28,30 +28,37 @@ const UpdateList = (props) => {
                 cancelBtnText="Cancel"
                 value={date}
                 onDateChange={(value) => setDate(value)}
-               
+            
             />
 
             <Button 
             text={'Update'}
-            style={{ height: 40 }} 
-            onPress={() => {
-            
-                if (title != '' && description != '') { 
+            style={{ height: 40 }}
+            onPress={() => { 
+            let isValid = true;
+
+                if (title == undefined || description == undefined) {
+                    setTitle(undefined);
+                    setDescription(undefined);
+                    isValid = false;
+                }
+
+                if (isValid) {
                     let object = {
                         id,
                         title,
                         description,
                         date
                     };
-                    props.addList(object)
+                    props.updateList(object)
                     props.navigation.pop();
                 }
                 else {
-                    alert('Warning',
-                    'Please fill in all fields!');
+                    alert("Please fill in all fields!");
                 }
 
             }} />
+
         </View>
     )
 

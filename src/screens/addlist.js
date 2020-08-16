@@ -10,7 +10,7 @@ const AddList = (props) => {
     const [id, setId] = useState()
     const [title, setTitle] = useState()
     const [description, setDescription] = useState()
-    const [date, setDate]= useState()
+    const [date, setDate] = useState()
 
     return (
         <View style={styles.container}>
@@ -36,8 +36,15 @@ const AddList = (props) => {
             text={'Add'}
             style={{ height: 40 }} 
             onPress={() => {
+            let isValid = true;
             
-                if (title != '' && description != '') { 
+                if (title == undefined || description == undefined) {
+                    setTitle(undefined);
+                    setDescription(undefined);
+                    isValid = false;
+                }
+
+                if (isValid) {
                     let object = {
                         id,
                         title,
@@ -48,11 +55,11 @@ const AddList = (props) => {
                     props.navigation.pop();
                 }
                 else {
-                    alert('Warning',
-                    'Please fill in all fields!');
+                    alert("Please fill in all fields!");
                 }
 
             }} />
+
         </View>
     )
 

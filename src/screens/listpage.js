@@ -35,19 +35,18 @@ const ListPage = (props) => {
     const renderItem = ({ item }) => (
         <TouchableOpacity 
         style={styles.items} 
-        onPress={() => {
-            props.navigation.navigate('UpdateList')
+        onPress={() => {props.navigation.navigate('UpdateList')
         }}>
             <View style={styles.left}>
                 
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.description}>{item.description}</Text>
-            
+        
             </View>
            
            <View style={styles.right}> 
                 
-            <TouchableOpacity 
+            <TouchableOpacity style={{marginLeft: '85%'}}
             onPress={()=> deleteAlert(item)}>
                 
                 <Image style={styles.image} source={require('../img/trash.png')} />
@@ -73,7 +72,6 @@ const ListPage = (props) => {
                     data={props.list}
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
-                    style={styles.flatList}
                     ListEmptyComponent={() => {
                         return (
                             <View style={{ 
@@ -130,7 +128,6 @@ const styles = StyleSheet.create({
         height: 35,
         width: 35,
         resizeMode: 'contain',
-        marginLeft: '70%'
     },
     date:{
         marginLeft: '45%',

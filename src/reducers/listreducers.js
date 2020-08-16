@@ -13,45 +13,50 @@ export default (state = INITIAL_STATE, action) => {
         return {
             ...state,
             list: action.payload,
-            };
+        };
         case ADD_LIST:
-            const object = action.payload;
-            let array = state.list.slice()
+            const addlist = action.payload;
+            let addlistArray = state.list.slice()
 
-            array.push(object)
+            addlistArray.push(addlist)
             
-            AsyncStorage.setItem(ADD_LIST_LOCAL, JSON.stringify(array))
+            AsyncStorage.setItem(ADD_LIST_LOCAL, JSON.stringify(addlistArray))
         return {
             ...state,
-            list: array,
-            };
+            list: addlistArray,
+        };
 
         case UPDATE_LIST:
-           const object1 = action.payload;
-           let  array1 = state.list.slice();
-           let index = array1.findIndex((value) => value.id === object1.id);
-           
-           var array2 = array1[index]
+            const updatelist = action.payload;
+            let updatelistArray = state.list.slice();
 
-           AsyncStorage.setItem(ADD_LIST_LOCAL, JSON.stringify(array2));
-        return {
-            ...state,
-            list: array2,
-      };
+            const updatelistIndex = updatelistArray.findIndex(x => x.id == updatelist.id);
+
+            updatelistArray[updatelistIndex].id = updatelist.id;
+            updatelistArray[updatelistIndex].title = updatelist.title;
+            updatelistArray[updatelistIndex].description = updatelist.description;
+            updatelistArray[updatelistIndex].date = updatelist.date;
+
+            AsyncStorage.setItem(ADD_LIST_LOCAL, JSON.stringify(updatelistArray))
+
+            return {
+                ...state,
+                list: updatelistArray,
+        };
 
         case DELETE_LIST:
-            let object2 = action.payload;
-            let array3 = state.list.slice();
-            let index1 = array3.findIndex((value) => value.id !== object2.id);
+            const deletelist = action.payload;
+            let deletelistArray = state.list.slice();
+            
+            const deletelistIndex = deletelistArray.findIndex(y => y.id !== deletelist.id);
 
-            array3.splice(index1, 1);
-        
-            AsyncStorage.clear();
-            AsyncStorage.setItem(ADD_LIST_LOCAL, JSON.stringify(array3));
+            deletelistArray.splice(deletelistIndex, 1);
+            
+            AsyncStorage.setItem(ADD_LIST_LOCAL, JSON.stringify(deletelistArray));
       
       return {
             ...state,
-            list: array3,
+            list: deletelistArray,
       };
             
         default:
